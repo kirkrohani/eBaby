@@ -6,6 +6,7 @@ public class Auction
 {
 	private String auctionId = null;
 	private User seller = null;
+	private User highBidder = null;
 	private String description = null;
 	private Double price = null;
 	private LocalDateTime auctionStartDateTime = null;
@@ -41,6 +42,10 @@ public class Auction
 		return this.price;
 	}
 
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	public LocalDateTime getAuctionStartDateTime() {
 		return this.auctionStartDateTime;
 	}
@@ -71,5 +76,15 @@ public class Auction
 		OPEN,
 		CLOSED;
 	}
+
+	public User getHighBidder() {
+		return highBidder;
+	}
+
+	public void setHighBidder(User highBidder) {
+		this.highBidder = highBidder;
+	}
+	
+	
 
 }

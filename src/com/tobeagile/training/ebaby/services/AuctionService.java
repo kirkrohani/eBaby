@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.tobeagile.training.ebaby.domain.Auction;
+import com.tobeagile.training.ebaby.domain.Auction.AuctionState;
+import com.tobeagile.training.ebaby.domain.AuctionNotifier;
 import com.tobeagile.training.ebaby.domain.User;
 
 
@@ -22,23 +24,48 @@ public class AuctionService {
 			Auction auction = new Auction(u,description,price,auctionStartDateTime,auctionEndDateTime);
 			auctions.add(auction);
 			return auction;
-		}		
+		}
+		
+		
 		return null;
 	}
 	
 		
 	private boolean validationAuctionTimes(LocalDateTime auctionStartTime, LocalDateTime auctionEndTime)
 	{
-		System.out.println("Start time :"+auctionStartTime);
-		System.out.println("End time :"+auctionEndTime);
-		System.out.println("Now time :"+LocalDateTime.now());
-		if (auctionStartTime.equals(LocalDateTime.now()))
-				System.out.println("YES");
 		if(auctionEndTime.isAfter(auctionStartTime) && auctionStartTime.isAfter(LocalDateTime.now()))
 			return true;
 		return false;
 	}
+
 	
+	public void changeAuctionState(Auction auction) {
+		
+		if(auction.getAuctionState().equals(AuctionState.NOT_STARTED))
+		{
+			auction.setAuctionState(AuctionState.OPEN);
+		}
+		else if(auction.getAuctionState().equals(AuctionState.OPEN))
+		{
+			auction.setAuctionState(AuctionState.CLOSED);
+			sendNotifications(auction);
+		}		
+	}
 
+	public void placeBid(Double bidAmount, Auction auction, User bidder) {
+		
+		if (!bidder.equals(auction.getSeller()))
+		{
+			if(bidAmount >= auction.getPrice() )
+			{
+				auction.setPrice(bidAmount);
+				auction.setHighBidder(bidder);
+			}
+		}
+	}
 
+	public void sendNotifications(Auction auction) {
+		AuctionNotifier notifier = AuctionNotifier.getInstance(auction);
+		notifier.sendMessage(auction);
+	}
 }
