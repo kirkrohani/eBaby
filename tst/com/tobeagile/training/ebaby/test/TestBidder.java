@@ -113,11 +113,11 @@ public class TestBidder {
 		//System.out.println("auction :"+ auction);
 		
 		auctionService.placeBid(bidAmount, auction, originalBidder);
-		System.out.println("bidAmount: " + bidAmount + "\n current price: " + auction.getPrice());
+		System.out.println("bidAmount1: " + bidAmount + "\n current price1: " + auction.getPrice());
 		assertEquals(bidAmount, auction.getPrice());
 		
 		auctionService.placeBid(bidAmount2, auction, secondBidder);
-		System.out.println("bidAmount2: " + bidAmount2 + "\n current price: " + auction.getPrice());
+		System.out.println("bidAmount2: " + bidAmount2 + "\n current price2: " + auction.getPrice());
 		System.out.println("auction: " + auction);
 		assertEquals(originalBidder.getUserName(), auction.getHighBidder().getUserName());
 		

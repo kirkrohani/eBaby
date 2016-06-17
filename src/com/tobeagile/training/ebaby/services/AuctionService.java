@@ -6,6 +6,7 @@ import java.util.Set;
 import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.Auction.AuctionState;
 import com.tobeagile.training.ebaby.domain.AuctionNotifier;
+import com.tobeagile.training.ebaby.domain.FeeDecorator;
 import com.tobeagile.training.ebaby.domain.User;
 
 
@@ -48,6 +49,19 @@ public class AuctionService {
 		else if(auction.getAuctionState().equals(AuctionState.OPEN))
 		{
 			auction.setAuctionState(AuctionState.CLOSED);
+			Set<FeeDecorator> fees = FeeFactory.getFees(auction);
+			Double buyerFees = 0.00;
+			for(FeeDecorator fee: fees)
+			{
+				fee.process();
+				buyerFees += fee.getBuyerFee();
+			}
+			// need admin to write to c:\
+			Set<LoggerDecorator> logs = LoggerFactory.getLogs(auction);
+			for(LoggerDecorator log: logs)
+			{
+				log.process();
+			}
 			sendNotifications(auction);
 		}		
 	}
@@ -56,7 +70,7 @@ public class AuctionService {
 		
 		if (!bidder.equals(auction.getSeller()))
 		{
-			if(bidAmount >= auction.getPrice() )
+			if(bidAmount > auction.getPrice() )
 			{
 				auction.setPrice(bidAmount);
 				auction.setHighBidder(bidder);
@@ -67,5 +81,9 @@ public class AuctionService {
 	public void sendNotifications(Auction auction) {
 		AuctionNotifier notifier = AuctionNotifier.getInstance(auction);
 		notifier.sendMessage(auction);
+	}
+
+	public void setAutionCategory(Auction auction, String auctionCategory) {
+		auction.setAuctionCategory(auctionCategory);
 	}
 }

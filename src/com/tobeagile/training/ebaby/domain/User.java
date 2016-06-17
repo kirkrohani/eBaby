@@ -120,4 +120,12 @@ public class User
 		isSeller = true;
 	}
 
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName
+				+ ", email=" + email + ", password=" + password + ", userName="
+				+ userName + ", loggedIn=" + loggedIn + ", isSeller="
+				+ isSeller + "]";
+	}
+
 }

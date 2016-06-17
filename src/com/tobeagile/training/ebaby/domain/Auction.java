@@ -12,7 +12,9 @@ public class Auction
 	private LocalDateTime auctionStartDateTime = null;
 	private LocalDateTime auctionEndDateTime = null;
 	private AuctionState auctionState = AuctionState.NOT_STARTED;
-	private AuctionCategory auctionCategory = AuctionCategory.GENERAL;
+	private String auctionCategory = "GENERAL";
+	private Double sellerIncome = 0.00;
+	private Double buyerCost = 0.00;
 	
 	public AuctionState getAuctionState() {
 		return auctionState;
@@ -63,20 +65,8 @@ public class Auction
 		this.auctionId = auctionId;
 	}
 
-	@Override
-	public String toString() {
-		return "Auction [auctionId=" + auctionId + ", seller=" + seller
-				+ ", description=" + description + ", price=" + price
-				+ ", auctionStartDateTime=" + auctionStartDateTime
-				+ ", auctionEndDateTime=" + auctionEndDateTime + "]";
-	}
-	
-	public enum AuctionCategory
-	{
-		DOWNLOADABLE_SOFTWARE,
-		CAR,
-		GENERAL;
-	}
+
+
 	
 	public enum AuctionState
 	{
@@ -93,13 +83,57 @@ public class Auction
 		this.highBidder = highBidder;
 	}
 
-	public AuctionCategory getAuctionCategory() {
+	public String getAuctionCategory() {
 		return auctionCategory;
 	}
 
-	public void setAuctionCategory(AuctionCategory auctionCategory) {
+	public void setAuctionCategory(String auctionCategory) {
 		this.auctionCategory = auctionCategory;
 	}
+
+	public Double getSellerIncome() {
+		return sellerIncome;
+	}
+
+	public void setSellerIncome(Double fee) {
+		this.sellerIncome = fee;
+	}
+
+	public Double getBuyerCost() {
+		return buyerCost;
+	}
+
+	public void setBuyerCost(Double buyerCost) {
+		this.buyerCost = buyerCost;
+	}
+
+	public void setSeller(User seller) {
+		this.seller = seller;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setAuctionStartDateTime(LocalDateTime auctionStartDateTime) {
+		this.auctionStartDateTime = auctionStartDateTime;
+	}
+
+	public void setAuctionEndDateTime(LocalDateTime auctionEndDateTime) {
+		this.auctionEndDateTime = auctionEndDateTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Auction [auctionId=" + auctionId + ", seller=" + seller
+				+ ", highBidder=" + highBidder + ", description=" + description
+				+ ", price=" + price + ", auctionStartDateTime="
+				+ auctionStartDateTime + ", auctionEndDateTime="
+				+ auctionEndDateTime + ", auctionState=" + auctionState
+				+ ", auctionCategory=" + auctionCategory + ", sellerIncome="
+				+ sellerIncome + ", buyerCost=" + buyerCost + "]";
+	}
+	
 	
 	
 
