@@ -2,7 +2,6 @@ package com.tobeagile.training.ebaby.domain;
 
 public class User
 {
-
 	private String firstName = null;
 	private String lastName = null;
 	private String email = null;
@@ -19,7 +18,6 @@ public class User
 		this.email = email;
 		this.password = password;
 		this.userName = userName;
-
 	}
 
 	@Override
@@ -127,5 +125,4 @@ public class User
 				+ userName + ", loggedIn=" + loggedIn + ", isSeller="
 				+ isSeller + "]";
 	}
-
 }

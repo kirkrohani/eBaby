@@ -65,7 +65,7 @@ public class TestSendingNotifications {
 		auctionService.changeAuctionState(auction); // opens it		
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAutionCategory(auction, "GENERAL");
+		auctionService.setAuctionCategory(auction, "GENERAL");
 		auctionService.changeAuctionState(auction); // closes it
 		
 		String sellerMessage = usps.findEmail(seller.getEmail(), "sold");
@@ -94,7 +94,7 @@ public class TestSendingNotifications {
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAutionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, "CAR");
 		auctionService.changeAuctionState(auction);
 		
 		System.out.println(auction);
@@ -127,7 +127,7 @@ public class TestSendingNotifications {
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAutionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, "CAR");
 		auctionService.changeAuctionState(auction);
 
 		String sellerMessage = usps.findEmail(seller.getEmail(), "sold");
@@ -154,7 +154,7 @@ public class TestSendingNotifications {
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAutionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, "CAR");
 		auctionService.changeAuctionState(auction);
 		
 		String sellerMessage = usps.findEmail(seller.getEmail(), "sold");

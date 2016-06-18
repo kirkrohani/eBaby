@@ -7,7 +7,7 @@ public class LuxuryTax extends FeeDecorator {
 
 	private Auction auction = null;
 	
-	//Currently there is no buyer transcation fee
+	//Currently there is no buyer transaction fee
 	Double buyerFee = 0.00;
 	Double sellerFee = 0.00;
 	

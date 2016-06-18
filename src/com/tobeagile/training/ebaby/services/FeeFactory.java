@@ -9,10 +9,11 @@ import com.tobeagile.training.ebaby.domain.FeeDecorator;
 public class FeeFactory {
 
 	private static FeeFactory instance;
-	public static Set<FeeDecorator> allFees = new HashSet<>();
+	public static Set<FeeDecorator> allFees = null;
 	
 	public static Set<FeeDecorator> getFees(Auction auction)
 	{
+		allFees = new HashSet<FeeDecorator>();
 		allFees.add(new TransactionFee(auction));
 		
 		if (!auction.getAuctionCategory().equals("DOWNLOADABLE_SOFTWARE") && !auction.getAuctionCategory().equals("CAR"))

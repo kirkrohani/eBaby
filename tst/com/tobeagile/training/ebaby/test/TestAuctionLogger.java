@@ -12,117 +12,101 @@ import com.tobeagile.training.ebaby.services.AuctionLogger;
 import com.tobeagile.training.ebaby.services.AuctionService;
 import com.tobeagile.training.ebaby.services.UserService;
 
-public class TestAuctionLogger {
-	private UserService userService = new UserService();
+public class TestAuctionLogger extends BaseTestClass {
+	private Auction auction = null;
+	private User buyer = createUser("roy", "johnson", "roy@gmail.com", "password", "buyer1");
+	
+	@Test
+	public void testAuctionLoggerForAuctionNotStartedYet() {
+		bidAmount = 10000.00;
+		auction = createTestAution("Seller1", auctionStartDateTime, auctionEndDateTime);
+		
+		userService.logIn(buyer);
+		auctionService.placeBid(bidAmount, auction, buyer);
 
-	private User createUser(String fname, String lname, String email, String password, String uname)
-	{
-		String firstNameUser1 = fname;
-		String lastNameUser1 = lname;
-		String emailUser1 = email;
-		String passwordUser1 = password;
-		String userNameUser1 = uname;
-		User user = userService.register(firstNameUser1, lastNameUser1, emailUser1, userNameUser1, passwordUser1);
-		return user;
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isCarAuction));
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isOverTenThousand));
+	}
+	
+	@Test
+	public void testAuctionLoggerForAuctionClosed() {
+		bidAmount = 10000.01;
+		auction = createTestAution("Seller2", auctionStartDateTime, auctionEndDateTime);
+		
+		userService.logIn(buyer);
+		auctionService.changeAuctionState(auction); // Open the auction
+		auctionService.changeAuctionState(auction); // Close the auction
+		auctionService.onClose(auction);
+		
+		auctionService.placeBid(bidAmount, auction, buyer);
+
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isCarAuction));
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isOverTenThousand));
 	}
 	
 	@Test
 	public void testAuctionLoggerForNoLogging() {
-		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
-		User buyer = createUser("roy", "johnson", "roy@gmail.com", "password", "buyer1");
-		Double bidAmount = 10000.00;
-		String description = "This vase is nice.";
-		Double price = 10.00;
-		LocalDateTime auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
-		LocalDateTime auctionEndDateTime = LocalDateTime.now().plusDays(2);
-		userService.logIn(seller);
-		userService.setAsSeller(seller);
+		bidAmount = 10000.00;
+		auction = createTestAution("Seller3", auctionStartDateTime, auctionEndDateTime);
 		
-		AuctionService auctionService = new AuctionService();
-		Auction auction = auctionService.createAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
 		auctionService.changeAuctionState(auction);
+		auctionService.onClose(auction);
 
-		AuctionLogger logger = AuctionLogger.getInstance();
-		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is a car auction"));
-		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is an auction for amount over $10000.00"));
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isCarAuction));
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isOverTenThousand));
 	}
 	
 	@Test
 	public void testAuctionLoggerOnAmountsOnCategoryCarAt10000() {
-		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
-		User buyer = createUser("roy", "johnson", "roy@gmail.com", "password", "buyer1");
-		Double bidAmount = 10000.00;
-		String description = "This vase is nice.";
-		Double price = 10.00;
-		LocalDateTime auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
-		LocalDateTime auctionEndDateTime = LocalDateTime.now().plusDays(2);
-		userService.logIn(seller);
-		userService.setAsSeller(seller);
+		bidAmount = 10000.00;
 		
-		AuctionService auctionService = new AuctionService();
-		Auction auction = auctionService.createAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);
+		auction = createTestAution("Seller4", auctionStartDateTime, auctionEndDateTime);
+
 		auctionService.changeAuctionState(auction);	
-		auctionService.setAutionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, "CAR");
 
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
 		auctionService.changeAuctionState(auction);
+		auctionService.onClose(auction);
 
-		AuctionLogger logger = AuctionLogger.getInstance();
-		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is a car auction"));
-		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is an auction for amount over $10000.00"));
+		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + isCarAuction));
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isOverTenThousand));
 	}
 	
 	@Test
 	public void testAuctionLoggerOnAmountsGreaterThan10000() {
-		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
-		User buyer = createUser("roy", "johnson", "roy@gmail.com", "password", "buyer1");
-		Double bidAmount = 10000.01;
-		String description = "This vase is nice.";
-		Double price = 10.00;
-		LocalDateTime auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
-		LocalDateTime auctionEndDateTime = LocalDateTime.now().plusDays(2);
-		userService.logIn(seller);
-		userService.setAsSeller(seller);
+		bidAmount = 10000.01;
 		
-		AuctionService auctionService = new AuctionService();
-		Auction auction = auctionService.createAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);
+		auction = createTestAution("Seller5", auctionStartDateTime, auctionEndDateTime);
+
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
 		auctionService.changeAuctionState(auction);
+		auctionService.onClose(auction);
 
-		AuctionLogger logger = AuctionLogger.getInstance();
-		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is an auction for amount over $10000.00"));
-		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is a car auction"));
-		}
+		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + isOverTenThousand));
+		assertEquals(false, logger.findMessage("auctionLog.log", auction.getAuctionId() + isCarAuction));
+	}
 	
 	@Test
 	public void testAuctionLoggerOnCarsGreaterThan10000() {
-		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
-		User buyer = createUser("roy", "johnson", "roy@gmail.com", "password", "buyer1");
-		Double bidAmount = 10000.01;
-		String description = "This vase is nice.";
-		Double price = 10.00;
-		LocalDateTime auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
-		LocalDateTime auctionEndDateTime = LocalDateTime.now().plusDays(2);
-		userService.logIn(seller);
-		userService.setAsSeller(seller);
-	
+		bidAmount = 10000.01;
 		
-		AuctionService auctionService = new AuctionService();
-		Auction auction = auctionService.createAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);
-		auctionService.setAutionCategory(auction, "CAR");
+		auction = createTestAution("Seller6", auctionStartDateTime, auctionEndDateTime);
+
+		auctionService.setAuctionCategory(auction, "CAR");
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
 		auctionService.changeAuctionState(auction);
+		auctionService.onClose(auction);
 
-		AuctionLogger logger = AuctionLogger.getInstance();
-		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is a car auction"));
-		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + " is an auction for amount over $10000.00"));
+		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + isCarAuction));
+		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + isOverTenThousand));
 		}
 }

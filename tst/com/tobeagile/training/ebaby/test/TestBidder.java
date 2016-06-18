@@ -39,13 +39,10 @@ public class TestBidder {
 		userService.setAsSeller(seller);
 		
 		AuctionService auctionService = new AuctionService();
-		Auction auction = auctionService.createAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);
-		//System.out.println("auction :"+ auction);
-		
+		Auction auction = auctionService.createAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);		
 		
 		auctionService.placeBid(bidAmount, auction, bidder);
 		assertEquals(bidAmount, auction.getPrice());
-		
 	}
 	
 	@Test

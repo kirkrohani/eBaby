@@ -2,6 +2,8 @@ package com.tobeagile.training.ebaby.domain;
 
 import java.time.LocalDateTime;
 
+import com.tobeagile.training.ebaby.services.OffHours;
+
 public class Auction 
 {
 	private String auctionId = null;
@@ -15,6 +17,7 @@ public class Auction
 	private String auctionCategory = "GENERAL";
 	private Double sellerIncome = 0.00;
 	private Double buyerCost = 0.00;
+	private boolean closedOffHours = false;
 	
 	public AuctionState getAuctionState() {
 		return auctionState;
@@ -129,6 +132,15 @@ public class Auction
 				+ auctionEndDateTime + ", auctionState=" + auctionState
 				+ ", auctionCategory=" + auctionCategory + ", sellerIncome="
 				+ sellerIncome + ", buyerCost=" + buyerCost + "]";
+	}
+
+	public boolean isClosedOffHours() {
+		return closedOffHours;
+	}
+
+	public void setClosedOffHours(boolean closedOffHours) {
+		OffHours offHours = OffHours.getInstance();
+		this.closedOffHours = offHours.isOffHours();
 	}
 	
 	

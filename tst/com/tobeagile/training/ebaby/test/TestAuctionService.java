@@ -12,6 +12,8 @@ import com.tobeagile.training.ebaby.services.UserService;
 
 
 public class TestAuctionService {
+	
+	Auction auction = null;
 
 	@Test
 	public void testAddAuctionToAuctions(){
@@ -32,7 +34,7 @@ public class TestAuctionService {
 		users.setAsSeller(u);
 		
 		AuctionService auctions = new AuctionService();
-		Auction auction = auctions.createAuction(u,description,price,auctionStartDateTime,auctionEndDateTime);
+		auction = auctions.createAuction(u,description,price,auctionStartDateTime,auctionEndDateTime);
 		assertEquals(u.getUserName() + auctionStartDateTime, auction.getAuctionId());
 	}
 	
@@ -56,7 +58,7 @@ public class TestAuctionService {
 		users.setAsSeller(u);
 		
 		AuctionService auctions = new AuctionService();
-		Auction auction = auctions.createAuction(u,description,price,auctionStartDateTime,auctionEndDateTime);
+		auction = auctions.createAuction(u,description,price,auctionStartDateTime,auctionEndDateTime);
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.NOT_STARTED);
 		auctions.changeAuctionState(auction);
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.OPEN);
@@ -65,5 +67,4 @@ public class TestAuctionService {
 		auctions.changeAuctionState(auction);
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.CLOSED);
 	}
-
 }

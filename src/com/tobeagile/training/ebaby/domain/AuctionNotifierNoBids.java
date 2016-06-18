@@ -9,11 +9,11 @@ public class AuctionNotifierNoBids extends AuctionNotifier {
 			
 	protected AuctionNotifierNoBids(Auction auction)
 	{
-		System.out.println("INSIDE AUCTION NOTIFIER no BIDS");
 		this.auction = auction;
 		sellerMessageItemNotSold = String.format("Sorry, your aution for %s  did not have any bidders", 
 				auction.getDescription());
 	}
+	
 	@Override
 	public void sendMessage(Auction auction)
 	{

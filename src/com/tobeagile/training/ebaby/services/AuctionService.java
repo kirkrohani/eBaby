@@ -29,14 +29,12 @@ public class AuctionService {
 		return null;
 	}
 	
-		
 	private boolean validationAuctionTimes(LocalDateTime auctionStartTime, LocalDateTime auctionEndTime)
 	{
 		if(auctionEndTime.isAfter(auctionStartTime) && auctionStartTime.isAfter(LocalDateTime.now()))
 			return true;
 		return false;
 	}
-
 	
 	public void changeAuctionState(Auction auction) {
 		
@@ -47,31 +45,41 @@ public class AuctionService {
 		else if(auction.getAuctionState().equals(AuctionState.OPEN))
 		{
 			auction.setAuctionState(AuctionState.CLOSED);
-			Set<FeeDecorator> fees = FeeFactory.getFees(auction);
-			Double buyerFees = 0.00;
-			for(FeeDecorator fee: fees)
-			{
-				fee.process();
-				buyerFees += fee.getBuyerFee();
-			}
-			// need admin to write to c:\
-			Set<LoggerDecorator> logs = LoggerFactory.getLogs(auction);
-			for(LoggerDecorator log: logs)
-			{
-				log.process(auction);
-			}
-			sendNotifications(auction);
 		}		
 	}
 
-	public void placeBid(Double bidAmount, Auction auction, User bidder) {
-		
-		if (!bidder.equals(auction.getSeller()))
+	public void onClose(Auction auction) {
+		Set<FeeDecorator> fees = FeeFactory.getFees(auction);
+		Double buyerFees = 0.00;
+		for(FeeDecorator fee: fees)
 		{
-			if(bidAmount > auction.getPrice() )
+			fee.process();
+			buyerFees += fee.getBuyerFee();
+		}
+		Set<LoggerDecorator> logs = LoggerFactory.getLogs(auction);
+		for(LoggerDecorator log: logs)
+		{
+			if(auction.isClosedOffHours())
 			{
-				auction.setPrice(bidAmount);
-				auction.setHighBidder(bidder);
+				log.process(auction, "offHoursLog.log");
+
+			} else {
+				log.process(auction, "auctionLog.log");
+			}
+		}
+		sendNotifications(auction);
+	}
+
+	public void placeBid(Double bidAmount, Auction auction, User bidder) {
+		if(auction.getAuctionState() == (Auction.AuctionState.OPEN))
+		{
+			if (!bidder.equals(auction.getSeller()))
+			{
+				if(bidAmount > auction.getPrice() )
+				{
+					auction.setPrice(bidAmount);
+					auction.setHighBidder(bidder);
+				}
 			}
 		}
 	}
@@ -81,7 +89,7 @@ public class AuctionService {
 		notifier.sendMessage(auction);
 	}
 
-	public void setAutionCategory(Auction auction, String auctionCategory) {
+	public void setAuctionCategory(Auction auction, String auctionCategory) {
 		auction.setAuctionCategory(auctionCategory);
 	}
 }

@@ -3,7 +3,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDateTime;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,8 +10,7 @@ import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.User;
 import com.tobeagile.training.ebaby.services.UserService;
 
-
-public class TestAuction {
+public class TestAuction extends BaseTestClass{
 	private Auction auction = null;
 	private UserService users = new UserService();
 	private String firstNameUser1 = "John";
@@ -30,10 +28,6 @@ public class TestAuction {
 	@Before
 	public void setUp() throws Exception {
 		auction = new Auction(u,description,price,auctionStartDateTime,auctionEndDateTime);
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test

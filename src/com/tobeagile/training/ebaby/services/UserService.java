@@ -32,9 +32,7 @@ public class UserService
 			usersCollection.add(user);
 			return true;
 		}
-
 		return false;
-
 	}
 
 	public void logIn(User user)
@@ -52,7 +50,6 @@ public class UserService
 		User user = new User(firstName, lastName, email, userName, password);
 		this.addUser(user);
 		return user;
-
 	}
 
 	public void setAsSeller(User user)
