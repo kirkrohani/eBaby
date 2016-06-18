@@ -6,46 +6,59 @@ import java.time.LocalDateTime;
 
 import org.junit.Test;
 
+import com.tobeagile.training.ebaby.domain.Auction;
+import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.domain.User;
-import com.tobeagile.training.ebaby.services.AuctionLogger;
-import com.tobeagile.training.ebaby.services.AuctionService;
-import com.tobeagile.training.ebaby.services.UserService;
 
-public class TestOffHours {
-	private UserService userService = new UserService();
+public class TestOffHours extends BaseTestClass {
 
-	private User createUser(String fname, String lname, String email, String password, String uname)
-	{
-		String firstNameUser1 = fname;
-		String lastNameUser1 = lname;
-		String emailUser1 = email;
-		String passwordUser1 = password;
-		String userNameUser1 = uname;
-		User user = userService.register(firstNameUser1, lastNameUser1, emailUser1, userNameUser1, passwordUser1);
-		return user;
-	}
-	
 	@Test
 	public void testAuctionClosedOffHours() {
 		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
-		User buyer = createUser("roy", "johnson", "roy@gmail.com", "password", "buyer1");
-		Double bidAmount = 10.01;
-		String description = "This vase is nice.";
+		bidAmount = 10.01;
 		Double price = 10.00;
-		LocalDateTime auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
-		LocalDateTime auctionEndDateTime = LocalDateTime.now().plusDays(2);
+		
+		Auction mockAuction = new MockAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);
+		
 		userService.logIn(seller);
 		userService.setAsSeller(seller);
-
-		AuctionService auctionService = new AuctionService();
-				
-		TestableAuction testableAuction = new TestableAuction(seller,description,price,auctionStartDateTime,auctionEndDateTime);
-		auctionService.changeAuctionState(testableAuction);	
+		
+		auctionService.changeAuctionState(mockAuction);	 //Start the Auction
+		
 		userService.logIn(buyer);
-		auctionService.placeBid(bidAmount, testableAuction, buyer);
-		auctionService.changeAuctionState(testableAuction);
+		auctionService.placeBid(bidAmount, mockAuction, buyer);
+		
+		auctionService.changeAuctionState(mockAuction);  //Close the auction
+		auctionService.onClose(mockAuction); //Send notifications and log files
 
-		AuctionLogger logger = AuctionLogger.getInstance();
-		assertEquals(false, logger.findMessage("offHoursLog.log", testableAuction.getAuctionId() + "  closed after hours"));
+		assertEquals(true, logger.findMessage("offHoursLog.log", mockAuction.getAuctionId() + CLOSED_AFTER_HOURS));
+	}
+	
+	@Test
+	public void testAuctionClosedBusinessHours() {
+		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
+		bidAmount = 10.01;
+		Double price = 10.00;
+		
+		auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
+		auctionEndDateTime = LocalDateTime.now().plusDays(2);
+		
+		Auction mockAuction = new MockAuction(seller, description,price,auctionStartDateTime,auctionEndDateTime);
+		mockAuction.setClosedOffHours(false);  //Setting the auction to close DURING business hours rather than off hours
+		mockAuction.setAuctionCategory(AuctionCategory.CAR);
+		
+		userService.logIn(seller);
+		userService.setAsSeller(seller);
+		
+		auctionService.changeAuctionState(mockAuction);	 //Start the Auction
+		
+		userService.logIn(buyer);
+		auctionService.placeBid(bidAmount, mockAuction, buyer);
+		
+		auctionService.changeAuctionState(mockAuction);  //Close the auction
+		auctionService.onClose(mockAuction); //Send notifications and log files
+
+		assertEquals(false, logger.findMessage("offHoursLog.log", mockAuction.getAuctionId() + CLOSED_AFTER_HOURS));
+		assertEquals(true, logger.findMessage("auctionLog.log", mockAuction.getAuctionId() + isCarAuction));
 	}
 }
