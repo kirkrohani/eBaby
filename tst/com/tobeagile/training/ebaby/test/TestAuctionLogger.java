@@ -2,16 +2,9 @@ package com.tobeagile.training.ebaby.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDateTime;
-
 import org.junit.Test;
 
-import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
-import com.tobeagile.training.ebaby.domain.User;
-import com.tobeagile.training.ebaby.services.AuctionLogger;
-import com.tobeagile.training.ebaby.services.AuctionService;
-import com.tobeagile.training.ebaby.services.UserService;
 
 public class TestAuctionLogger extends BaseTestClass {
 	

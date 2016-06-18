@@ -7,9 +7,7 @@ import org.junit.Test;
 
 import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.User;
-import com.tobeagile.training.ebaby.services.AuctionService;
 import com.tobeagile.training.ebaby.services.UserService;
-
 
 public class TestAuctionService extends BaseTestClass {
 
