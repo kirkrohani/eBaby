@@ -35,7 +35,6 @@ public class AuctionNotifierBids extends AuctionNotifier
 				String.format("Your %s aution sold to %s for %s", 
 						auction.getDescription(), auction.getHighBidder().getEmail(), yourIncome);
 
-		System.out.println(sellerMessageItemSold);
 		PostOffice usps = PostOffice.getInstance();
 		usps.sendEMail(auction.getSeller().getEmail(), sellerMessageItemSold);
 		usps.sendEMail(auction.getHighBidder().getEmail(), highestBidderEmail);

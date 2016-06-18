@@ -19,6 +19,7 @@ public class BaseTestClass {
 	protected Double bidAmount = 0.00;
 	protected String isOverTenThousand = " is an auction for amount over $10000.00";
 	protected String isCarAuction = " is a car auction";
+	protected Auction auction = null;
 
 	protected User createUser(String fname, String lname, String email, String password, String uname)
 	{
@@ -31,7 +32,7 @@ public class BaseTestClass {
 		return user;
 	}
 	
-	protected Auction createTestAution(String sellerId, LocalDateTime startAuctionDateTime, LocalDateTime endAuctionDateTime)
+	protected Auction createTestAuction(String sellerId, LocalDateTime startAuctionDateTime, LocalDateTime endAuctionDateTime)
 	{
 		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", sellerId);
 		Double price = 10.00;

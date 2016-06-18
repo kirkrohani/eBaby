@@ -19,7 +19,7 @@ public class TestAuctionLogger extends BaseTestClass {
 	@Test
 	public void testAuctionLoggerForAuctionNotStartedYet() {
 		bidAmount = 10000.00;
-		auction = createTestAution("Seller1", auctionStartDateTime, auctionEndDateTime);
+		auction = createTestAuction("Seller1", auctionStartDateTime, auctionEndDateTime);
 		
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
@@ -31,7 +31,7 @@ public class TestAuctionLogger extends BaseTestClass {
 	@Test
 	public void testAuctionLoggerForAuctionClosed() {
 		bidAmount = 10000.01;
-		auction = createTestAution("Seller2", auctionStartDateTime, auctionEndDateTime);
+		auction = createTestAuction("Seller2", auctionStartDateTime, auctionEndDateTime);
 		
 		userService.logIn(buyer);
 		auctionService.changeAuctionState(auction); // Open the auction
@@ -47,7 +47,7 @@ public class TestAuctionLogger extends BaseTestClass {
 	@Test
 	public void testAuctionLoggerForNoLogging() {
 		bidAmount = 10000.00;
-		auction = createTestAution("Seller3", auctionStartDateTime, auctionEndDateTime);
+		auction = createTestAuction("Seller3", auctionStartDateTime, auctionEndDateTime);
 		
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
@@ -63,7 +63,7 @@ public class TestAuctionLogger extends BaseTestClass {
 	public void testAuctionLoggerOnAmountsOnCategoryCarAt10000() {
 		bidAmount = 10000.00;
 		
-		auction = createTestAution("Seller4", auctionStartDateTime, auctionEndDateTime);
+		auction = createTestAuction("Seller4", auctionStartDateTime, auctionEndDateTime);
 
 		auctionService.changeAuctionState(auction);	
 		auctionService.setAuctionCategory(auction, "CAR");
@@ -81,7 +81,7 @@ public class TestAuctionLogger extends BaseTestClass {
 	public void testAuctionLoggerOnAmountsGreaterThan10000() {
 		bidAmount = 10000.01;
 		
-		auction = createTestAution("Seller5", auctionStartDateTime, auctionEndDateTime);
+		auction = createTestAuction("Seller5", auctionStartDateTime, auctionEndDateTime);
 
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
@@ -97,7 +97,7 @@ public class TestAuctionLogger extends BaseTestClass {
 	public void testAuctionLoggerOnCarsGreaterThan10000() {
 		bidAmount = 10000.01;
 		
-		auction = createTestAution("Seller6", auctionStartDateTime, auctionEndDateTime);
+		auction = createTestAuction("Seller6", auctionStartDateTime, auctionEndDateTime);
 
 		auctionService.setAuctionCategory(auction, "CAR");
 		auctionService.changeAuctionState(auction);	
