@@ -26,8 +26,6 @@ public class AuctionService {
 			auctions.add(auction);
 			return auction;
 		}
-		
-		
 		return null;
 	}
 	
@@ -60,7 +58,7 @@ public class AuctionService {
 			Set<LoggerDecorator> logs = LoggerFactory.getLogs(auction);
 			for(LoggerDecorator log: logs)
 			{
-				log.process();
+				log.process(auction);
 			}
 			sendNotifications(auction);
 		}		

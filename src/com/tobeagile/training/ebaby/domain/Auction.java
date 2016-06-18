@@ -65,9 +65,6 @@ public class Auction
 		this.auctionId = auctionId;
 	}
 
-
-
-	
 	public enum AuctionState
 	{
 		NOT_STARTED,

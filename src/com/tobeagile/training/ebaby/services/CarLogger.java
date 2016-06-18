@@ -5,8 +5,8 @@ import com.tobeagile.training.ebaby.domain.Auction;
 public class CarLogger extends LoggerDecorator {
 		
 	@Override
-	public void process() {	
+	public void process(Auction auction) {	
 		AuctionLogger logger = AuctionLogger.getInstance();
-		logger.log("c:\\auctionLog.log", "car sale");
+		logger.log("auctionLog.log", auction.getAuctionId() + " is a car auction");
 	}
 }

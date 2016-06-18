@@ -13,7 +13,6 @@ public class FeeFactory {
 	
 	public static Set<FeeDecorator> getFees(Auction auction)
 	{
-	
 		allFees.add(new TransactionFee(auction));
 		
 		if (!auction.getAuctionCategory().equals("DOWNLOADABLE_SOFTWARE") && !auction.getAuctionCategory().equals("CAR"))
@@ -23,9 +22,6 @@ public class FeeFactory {
 			allFees.add(new CarShippingFee(auction));
 			allFees.add(new LuxuryTax(auction));
 		}
-
-		return allFees;
-		
-		
+		return allFees;		
 	}
 }

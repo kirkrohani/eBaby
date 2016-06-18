@@ -63,8 +63,6 @@ public class AuctionLogger {
 		return "";
 	}
 	
-	
-
 	private void CloseWriter(FileWriter logWriter) {
 		try {
 			logWriter.close();
@@ -90,9 +88,7 @@ public class AuctionLogger {
 			e.printStackTrace();
 		}
 		return logWriter;
-	}
-	
-	
+	}	
 	
 	private FileReader OpenFileReader(String _fileName) {
 		File logFile = new File(_fileName);

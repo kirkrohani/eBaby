@@ -19,8 +19,6 @@ public class LoggerFactory {
 		if (auction.getPrice() > 10000){
 			allLogs.add(new HighAmountLogger());
 		}
-		return allLogs;
-		
-		
+		return allLogs;		
 	}
 }

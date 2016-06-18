@@ -14,7 +14,6 @@ public class LuxuryTax extends FeeDecorator {
 	public LuxuryTax(Auction auction)
 	{
 		this.auction = auction;
-		
 	}
 	
 	@Override
@@ -23,7 +22,6 @@ public class LuxuryTax extends FeeDecorator {
 		Double price = auction.getPrice();
 		if (price > 50000.00)
 			buyerFee = .04*price;
-		
 	}
 
 	@Override
@@ -43,7 +41,4 @@ public class LuxuryTax extends FeeDecorator {
 	public void setSellerFee(Double sellerFee) {
 		this.sellerFee = sellerFee;
 	}
-	
-	
-
 }
