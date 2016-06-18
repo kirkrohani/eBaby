@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.tobeagile.training.ebaby.domain.Auction;
+import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 
 public class LoggerFactory {
 
@@ -13,7 +14,7 @@ public class LoggerFactory {
 	{		
 		allLogs = new HashSet<>();
 		
-		if (auction.getAuctionCategory().equals("CAR"))
+		if (auction.getAuctionCategory() == AuctionCategory.CAR)
 		{
 			allLogs.add(new CarLogger());
 		}

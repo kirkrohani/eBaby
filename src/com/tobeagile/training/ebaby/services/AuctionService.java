@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.tobeagile.training.ebaby.domain.Auction;
+import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.domain.Auction.AuctionState;
 import com.tobeagile.training.ebaby.domain.AuctionNotifier;
 import com.tobeagile.training.ebaby.domain.FeeDecorator;
@@ -89,7 +90,7 @@ public class AuctionService {
 		notifier.sendMessage(auction);
 	}
 
-	public void setAuctionCategory(Auction auction, String auctionCategory) {
+	public void setAuctionCategory(Auction auction, AuctionCategory auctionCategory) {
 		auction.setAuctionCategory(auctionCategory);
 	}
 }

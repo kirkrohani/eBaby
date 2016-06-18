@@ -1,5 +1,6 @@
 package com.tobeagile.training.ebaby.domain;
 
+import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.services.PostOffice;
 
 public class AuctionNotifierBids extends AuctionNotifier 
@@ -10,11 +11,11 @@ public class AuctionNotifierBids extends AuctionNotifier
 	{
 		Double shippingCost = 0.00;
 		Double luxuryTax = 0.00;
-		if(auction.getAuctionCategory().equals("DOWNLOADABLE_SOFTWARE"))
+		if(auction.getAuctionCategory() == AuctionCategory.DOWNLOADABLE_SOFTWARE)
 		{
 			shippingCost = 0.00;		
 		}
-		else if(auction.getAuctionCategory().equals("CAR"))
+		else if(auction.getAuctionCategory() == AuctionCategory.CAR)
 		{
 			shippingCost = 1000.00;
 			if(auction.getPrice() > 50000.00)

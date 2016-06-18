@@ -14,7 +14,7 @@ public class Auction
 	private LocalDateTime auctionStartDateTime = null;
 	private LocalDateTime auctionEndDateTime = null;
 	private AuctionState auctionState = AuctionState.NOT_STARTED;
-	private String auctionCategory = "GENERAL";
+	private AuctionCategory auctionCategory = AuctionCategory.GENERAL;
 	private Double sellerIncome = 0.00;
 	private Double buyerCost = 0.00;
 	private boolean closedOffHours = false;
@@ -67,6 +67,13 @@ public class Auction
 	public void setAuctionId(String auctionId) {
 		this.auctionId = auctionId;
 	}
+	
+	public enum AuctionCategory
+	{
+		GENERAL,
+		CAR,
+		DOWNLOADABLE_SOFTWARE;
+	}
 
 	public enum AuctionState
 	{
@@ -83,11 +90,11 @@ public class Auction
 		this.highBidder = highBidder;
 	}
 
-	public String getAuctionCategory() {
+	public AuctionCategory getAuctionCategory() {
 		return auctionCategory;
 	}
 
-	public void setAuctionCategory(String auctionCategory) {
+	public void setAuctionCategory(AuctionCategory auctionCategory) {
 		this.auctionCategory = auctionCategory;
 	}
 

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.User;
+import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.services.AuctionService;
 import com.tobeagile.training.ebaby.services.PostOffice;
 import com.tobeagile.training.ebaby.services.UserService;
@@ -37,7 +38,7 @@ public class TestSendingNotifications extends BaseTestClass {
 		auctionService.changeAuctionState(auction);		
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAuctionCategory(auction, "GENERAL");
+		auctionService.setAuctionCategory(auction, AuctionCategory.GENERAL);
 		auctionService.changeAuctionState(auction);
 		auctionService.onClose(auction);
 
@@ -59,7 +60,7 @@ public class TestSendingNotifications extends BaseTestClass {
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAuctionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, AuctionCategory.CAR);
 		auctionService.changeAuctionState(auction);
 		auctionService.onClose(auction);
 
@@ -81,7 +82,7 @@ public class TestSendingNotifications extends BaseTestClass {
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAuctionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, AuctionCategory.CAR);
 		auctionService.changeAuctionState(auction);
 		auctionService.onClose(auction);
 
@@ -104,7 +105,7 @@ public class TestSendingNotifications extends BaseTestClass {
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
-		auctionService.setAuctionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, AuctionCategory.CAR);
 		auctionService.changeAuctionState(auction);
 		auctionService.onClose(auction);
 		

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.junit.Test;
 
 import com.tobeagile.training.ebaby.domain.Auction;
+import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.domain.User;
 import com.tobeagile.training.ebaby.services.AuctionLogger;
 import com.tobeagile.training.ebaby.services.AuctionService;
@@ -64,7 +65,7 @@ public class TestAuctionLogger extends BaseTestClass {
 		auction = createTestAuction("Seller4", auctionStartDateTime, auctionEndDateTime);
 
 		auctionService.changeAuctionState(auction);	
-		auctionService.setAuctionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, AuctionCategory.CAR);
 
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
@@ -97,7 +98,7 @@ public class TestAuctionLogger extends BaseTestClass {
 		
 		auction = createTestAuction("Seller6", auctionStartDateTime, auctionEndDateTime);
 
-		auctionService.setAuctionCategory(auction, "CAR");
+		auctionService.setAuctionCategory(auction, AuctionCategory.CAR);
 		auctionService.changeAuctionState(auction);	
 		userService.logIn(buyer);
 		auctionService.placeBid(bidAmount, auction, buyer);
