@@ -1,9 +1,7 @@
-package com.tobeagile.training.ebaby.services;
+package com.tobeagile.training.ebaby.domain;
 
-import com.tobeagile.training.ebaby.domain.Auction;
-import com.tobeagile.training.ebaby.domain.FeeDecorator;
 
-public class ShippingFee extends FeeDecorator {
+public class CarShippingFee extends FeeDecorator {
 
 	private Auction auction = null;
 	
@@ -11,14 +9,14 @@ public class ShippingFee extends FeeDecorator {
 	Double buyerFee = 0.00;
 	Double sellerFee = 0.00;
 	
-	public ShippingFee(Auction auction)
+	public CarShippingFee(Auction auction)
 	{
 		this.auction = auction;
 	}
 	
 	@Override
 	public void process() {	
-		buyerFee=10.00;
+			buyerFee=1000.00;
 	}
 
 	@Override

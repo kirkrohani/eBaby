@@ -1,6 +1,5 @@
-package com.tobeagile.training.ebaby.services;
+package com.tobeagile.training.ebaby.domain;
 
-import com.tobeagile.training.ebaby.domain.Auction;
 
 public class OffHoursLogger extends LoggerDecorator {
 		

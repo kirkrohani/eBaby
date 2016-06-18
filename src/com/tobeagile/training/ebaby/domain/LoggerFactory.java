@@ -1,9 +1,8 @@
-package com.tobeagile.training.ebaby.services;
+package com.tobeagile.training.ebaby.domain;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 
 public class LoggerFactory {

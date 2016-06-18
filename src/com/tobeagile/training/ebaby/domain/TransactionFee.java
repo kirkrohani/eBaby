@@ -1,7 +1,5 @@
-package com.tobeagile.training.ebaby.services;
+package com.tobeagile.training.ebaby.domain;
 
-import com.tobeagile.training.ebaby.domain.Auction;
-import com.tobeagile.training.ebaby.domain.FeeDecorator;
 
 public class TransactionFee extends FeeDecorator {
 

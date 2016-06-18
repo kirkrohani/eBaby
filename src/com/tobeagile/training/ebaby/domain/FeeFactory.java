@@ -1,14 +1,12 @@
-package com.tobeagile.training.ebaby.services;
+package com.tobeagile.training.ebaby.domain;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.tobeagile.training.ebaby.domain.Auction;
-import com.tobeagile.training.ebaby.domain.FeeDecorator;
+import com.tobeagile.training.ebaby.services.LuxuryTax;
 
 public class FeeFactory {
 
-	private static FeeFactory instance;
 	public static Set<FeeDecorator> allFees = null;
 	
 	public static Set<FeeDecorator> getFees(Auction auction)

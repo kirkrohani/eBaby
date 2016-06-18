@@ -8,6 +8,9 @@ import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.domain.Auction.AuctionState;
 import com.tobeagile.training.ebaby.domain.AuctionNotifier;
 import com.tobeagile.training.ebaby.domain.FeeDecorator;
+import com.tobeagile.training.ebaby.domain.FeeFactory;
+import com.tobeagile.training.ebaby.domain.LoggerDecorator;
+import com.tobeagile.training.ebaby.domain.LoggerFactory;
 import com.tobeagile.training.ebaby.domain.User;
 
 
