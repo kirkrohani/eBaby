@@ -13,8 +13,6 @@ import com.tobeagile.training.ebaby.services.AuctionService;
 import com.tobeagile.training.ebaby.services.UserService;
 
 public class TestAuctionLogger extends BaseTestClass {
-	private Auction auction = null;
-	private User buyer = createUser("roy", "johnson", "roy@gmail.com", "password", "buyer1");
 	
 	@Test
 	public void testAuctionLoggerForAuctionNotStartedYet() {
@@ -108,5 +106,5 @@ public class TestAuctionLogger extends BaseTestClass {
 
 		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + isCarAuction));
 		assertEquals(true, logger.findMessage("auctionLog.log", auction.getAuctionId() + isOverTenThousand));
-		}
+	}
 }

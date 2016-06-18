@@ -23,24 +23,18 @@ public class TestBidder extends BaseTestClass{
 	
 	@Test
 	public void testPlacingBidAsSeller() {
-		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
-		bidAmount = 70.00; 
-		userService.logIn(seller);
-		userService.setAsSeller(seller);
+		bidAmount = 70.00;
 		
 		auction = createTestAuction("Seller1", auctionStartDateTime, auctionEndDateTime);
 		
-		auctionService.placeBid(bidAmount, auction, seller);
+		auctionService.placeBid(bidAmount, auction, auction.getSeller());
 		assertNotEquals(bidAmount, auction.getPrice());
 	}
 
 	@Test
 	public void testPlacingLowerOrEqualBid() {
-		User seller = createUser("bob", "johnson", "bob@gmail.com", "password", "Seller1");
 		bidAmount = 5.00; 
-		userService.logIn(seller);
 		userService.logIn(buyer);
-		userService.setAsSeller(seller);
 		
 		auction = createTestAuction("Seller1", auctionStartDateTime, auctionEndDateTime);
 				

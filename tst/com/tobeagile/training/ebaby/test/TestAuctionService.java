@@ -11,9 +11,7 @@ import com.tobeagile.training.ebaby.services.AuctionService;
 import com.tobeagile.training.ebaby.services.UserService;
 
 
-public class TestAuctionService {
-	
-	Auction auction = null;
+public class TestAuctionService extends BaseTestClass {
 
 	@Test
 	public void testAddAuctionToAuctions(){
@@ -24,47 +22,29 @@ public class TestAuctionService {
 		String passwordUser1 = "myPass";
 		String userNameUser1 = "User1";
 		
-		User u = users.register(firstNameUser1, lastNameUser1, emailUser1, userNameUser1, passwordUser1);
-		String description = "This vase is nice.";
+		auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
+		auctionEndDateTime = LocalDateTime.now().plusDays(2);
+		
+		User user = users.register(firstNameUser1, lastNameUser1, emailUser1, userNameUser1, passwordUser1);
 		Double price = 100.00;
-		LocalDateTime auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
-		LocalDateTime auctionEndDateTime = LocalDateTime.now().plusDays(2);
+	
+		users.logIn(user);
+		users.setAsSeller(user);
 		
-		users.logIn(u);
-		users.setAsSeller(u);
-		
-		AuctionService auctions = new AuctionService();
-		auction = auctions.createAuction(u,description,price,auctionStartDateTime,auctionEndDateTime);
-		assertEquals(u.getUserName() + auctionStartDateTime, auction.getAuctionId());
+		auction = auctionService.createAuction(user,description,price,auctionStartDateTime,auctionEndDateTime);
+		assertEquals(user.getUserName() + auctionStartDateTime, auction.getAuctionId());
 	}
 	
 	@Test
 	public void testAuctionState() throws Exception
-	{
-		UserService users = new UserService();
-		String firstNameUser1 = "John";
-		String lastNameUser1 = "Doe";
-		String emailUser1 = "johnDoe@me.com";
-		String passwordUser1 = "myPass";
-		String userNameUser1 = "User1";
-		
-		User u = users.register(firstNameUser1, lastNameUser1, emailUser1, userNameUser1, passwordUser1);
-		String description = "This vase is nice.";
-		Double price = 100.00;
-		LocalDateTime auctionStartDateTime = LocalDateTime.now().plusSeconds(30);
-		LocalDateTime auctionEndDateTime = LocalDateTime.now().plusDays(2);
-		
-		users.logIn(u);
-		users.setAsSeller(u);
-		
-		AuctionService auctions = new AuctionService();
-		auction = auctions.createAuction(u,description,price,auctionStartDateTime,auctionEndDateTime);
+	{	
+		auction = createTestAuction("Seller1", auctionStartDateTime, auctionEndDateTime);
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.NOT_STARTED);
-		auctions.changeAuctionState(auction);
+		auctionService.changeAuctionState(auction);
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.OPEN);
-		auctions.changeAuctionState(auction);
+		auctionService.changeAuctionState(auction);
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.CLOSED);
-		auctions.changeAuctionState(auction);
+		auctionService.changeAuctionState(auction);
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.CLOSED);
 	}
 }

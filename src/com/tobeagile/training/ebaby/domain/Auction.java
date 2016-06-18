@@ -142,8 +142,4 @@ public class Auction
 		OffHours offHours = OffHours.getInstance();
 		this.closedOffHours = offHours.isOffHours();
 	}
-	
-	
-	
-
 }
