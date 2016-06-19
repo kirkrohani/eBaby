@@ -1,11 +1,8 @@
 package com.tobeagile.training.ebaby.test;
 
 import static org.junit.Assert.assertEquals;
-
 import java.time.LocalDateTime;
-
 import org.junit.Test;
-
 import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.domain.User;

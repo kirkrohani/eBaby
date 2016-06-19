@@ -20,7 +20,8 @@ public class BaseTestClass {
 	protected String isOverTenThousand = " is an auction for amount over $10000.00";
 	protected String isCarAuction = " is a car auction";
 	protected Auction auction = null;
-	protected final String CLOSED_AFTER_HOURS = " closed after hours";
+	protected static final String CLOSED_AFTER_HOURS = " closed after hours";
+	
 
 	protected User createUser(String fname, String lname, String email, String password, String uname)
 	{

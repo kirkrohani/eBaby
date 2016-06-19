@@ -22,4 +22,3 @@ public class MockAuction extends Auction {
 	public void setClosedOffHours(boolean offHoursFlag) {
 		this.closedOffHours = offHoursFlag;
 	}
-}
