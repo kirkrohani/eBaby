@@ -130,17 +130,6 @@ public class Auction
 		this.auctionEndDateTime = auctionEndDateTime;
 	}
 
-	@Override
-	public String toString() {
-		return "Auction [auctionId=" + auctionId + ", seller=" + seller
-				+ ", highBidder=" + highBidder + ", description=" + description
-				+ ", price=" + price + ", auctionStartDateTime="
-				+ auctionStartDateTime + ", auctionEndDateTime="
-				+ auctionEndDateTime + ", auctionState=" + auctionState
-				+ ", auctionCategory=" + auctionCategory + ", sellerIncome="
-				+ sellerIncome + ", buyerCost=" + buyerCost + "]";
-	}
-
 	public boolean isClosedOffHours() {
 		return closedOffHours;
 	}

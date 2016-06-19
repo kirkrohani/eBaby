@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.tobeagile.training.ebaby.domain.Auction;
 import com.tobeagile.training.ebaby.domain.User;
+import com.tobeagile.training.ebaby.domain.Auction.AuctionCategory;
 import com.tobeagile.training.ebaby.services.UserService;
 
 public class TestAuction extends BaseTestClass{
@@ -45,6 +46,16 @@ public class TestAuction extends BaseTestClass{
 	@Test
 	public void testNewAuctionStateIsNotStarted() {		
 		assertEquals(auction.getAuctionState(), Auction.AuctionState.NOT_STARTED);
+	}
+	
+	
+	@Test
+	public void testNewAuctionCategory() {		
+		assertEquals(auction.getAuctionCategory(), Auction.AuctionCategory.GENERAL);
+		auction.setAuctionCategory(AuctionCategory.CAR);
+		assertEquals(auction.getAuctionCategory(), Auction.AuctionCategory.CAR);
+		auction.setAuctionCategory(AuctionCategory.DOWNLOADABLE_SOFTWARE);
+		assertEquals(auction.getAuctionCategory(), Auction.AuctionCategory.DOWNLOADABLE_SOFTWARE);
 	}
 	
 	@Test
