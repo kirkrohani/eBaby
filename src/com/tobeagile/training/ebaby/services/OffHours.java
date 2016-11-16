@@ -1,6 +1,8 @@
 package com.tobeagile.training.ebaby.services;
 
-public final class OffHours implements Hours {
+public final class OffHours implements Hours 
+{
+	System.out.println("Inside OffHourse");
 
 	private OffHours() {
 		Math.random();
